@@ -16,6 +16,13 @@ $foreign-key-width:      24px;
       display:none;
       color: teal;
     }
+    pre {
+      margin: 0;
+      text-overflow: ellipsis;
+      font-family: inherit;
+      overflow: hidden;
+
+    }
     input {
       font-size: 0.85rem;
       height: 28px;
@@ -91,6 +98,15 @@ $foreign-key-width:      24px;
         color: white;
       }
     }
+  }
+  &.tabulator-selected {
+    background: rgba($theme-base, 0.1);
+  }
+  &.inserted, &.inserted:hover {
+    background: rgba($brand-success, 0.7);
+  }
+  &.deleted, &.deleted:hover {
+    background: rgba($brand-danger, 0.7);
   }
 }
 .tabulator {
@@ -302,5 +318,30 @@ $foreign-key-width:      24px;
     &[data-page="last"]:before {
       content: '\e5dd';
     }
+  }
+}
+
+.tabulator-menu {
+  background: lighten($theme-bg, 5%);
+  border: none;
+  border-radius: 6px;
+  min-width: 150px;
+  padding: 0.3rem 0;
+
+  .tabulator-menu-item {
+    &:hover {
+      background: rgba($theme-base, 0.05);
+    }
+    color: $text-dark;
+    cursor: pointer;
+    padding: 0;
+
+    .item-icon {
+      vertical-align: top;
+    }
+  }
+
+  .tabulator-menu-separator {
+    border-top-color: rgba($theme-base, 0.07);
   }
 }

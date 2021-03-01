@@ -24,6 +24,7 @@ import 'reflect-metadata'
 import {TypeOrmPlugin} from './lib/typeorm_plugin'
 import config from './config'
 import ConfigPlugin from './plugins/ConfigPlugin'
+import ElectronPlugin from './plugins/ElectronPlugin'
 import { ipcRenderer } from 'electron'
 import AppEventHandler from './lib/events/AppEventHandler'
 import Connection from './common/appdb/Connection'
@@ -36,6 +37,14 @@ import platformInfo from './common/platform_info'
 
 (async () => {
   try {
+
+    const transports = [log.transports.console, log.transports.file]
+    if (platformInfo.isDevelopment || platformInfo.debugEnabled) {
+      transports.forEach(t => t.level = 'silly')
+    } else {
+      transports.forEach(t => t.level = 'warn')
+    }
+
     log.info("starting logging")
     tls.DEFAULT_MIN_VERSION = "TLSv1"
     TimeAgo.addLocale(en)
@@ -77,6 +86,7 @@ import platformInfo from './common/platform_info'
     Vue.use(VModal)
     Vue.use(VueClipboard)
     Vue.use(ConfigPlugin)
+    Vue.use(ElectronPlugin)
     Vue.use(VueNoty, {
       timeout: 2300,
       progressBar: true,
